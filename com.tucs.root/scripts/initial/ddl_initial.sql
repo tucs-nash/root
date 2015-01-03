@@ -1,15 +1,4 @@
 /***************************************DROPS*************************************/
-drop sequence JN_PROFILE_PRIV_SQ;
-drop sequence EN_USER_SQ;
-drop sequence EN_PARTICIPANT_SQ;
-drop sequence EN_GROUP_SQ;
-drop sequence EN_CONTROL_SQ;
-drop sequence EN_CONTROL_MONTHLY_SQ;
-drop sequence EN_TRANSACTION_SQ;
-drop sequence EN_CATEGORY_SQ;
-drop sequence RP_CLOSING_MONTHLY_SQ;
-drop sequence EN_SAVINGS_SQ;
-
 drop table TY_CURRENCY cascade constraints;
 drop table TY_PRIVILEGE cascade constraints;
 drop table TY_PROFILE cascade constraints;
