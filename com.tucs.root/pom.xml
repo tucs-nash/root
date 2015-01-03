@@ -25,9 +25,9 @@
 	</properties>
 
 	<modules>
-		<module>../com.tucs.core</module>
-		<module>../com.tucs.web</module>
-		<module>../com.tucs.business</module>
+		<module>../core/com.tucs.core</module>
+		<module>../web/com.tucs.web</module>
+		<module>../business/com.tucs.business</module>
 	</modules>
 
 	<dependencies>
