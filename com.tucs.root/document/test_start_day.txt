@@ -1,0 +1,54 @@
+start day < 20 
+08/01/2015
+start day: 2
+
+start day < today
+
+month: 1
+year: 2015
+startdate: 02/01/2015
+enddate: 01/02/2015
+----------------------------
+08/01/2015
+start day: 8
+
+start day = today
+
+month: 1
+year: 2015
+startdate: 8/01/2015
+enddate: 7/02/2015
+
+----------------------------
+08/01/2015
+start day: 14
+
+start day > today
+
+month: 12
+year: 2014
+startdate: 14/12/2014
+enddate: 13/01/2015
+
+------------------------------------------------------
+start day > 20
+08/01/2015
+start day: 21
+
+start day > today
+
+month: 1
+year: 2015
+startdate: 21/12/2014
+enddate: 20/01/2015
+
+---------------------------
+23/01/2015
+start day: 21
+
+start day <= today
+
+month: 2
+year: 2015
+startdate: 21/01/2015
+enddate: 20/02/2015
