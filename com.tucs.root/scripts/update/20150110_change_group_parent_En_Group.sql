@@ -1,0 +1,1 @@
+alter table EN_GROUP MODIFY GROUP_PARENT_ID null;
