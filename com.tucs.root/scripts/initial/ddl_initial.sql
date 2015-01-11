@@ -1,4 +1,5 @@
 /***************************************DROPS*************************************/
+drop table TY_LANGUAGE cascade constraints;
 drop table TY_CURRENCY cascade constraints;
 drop table TY_PRIVILEGE cascade constraints;
 drop table TY_PROFILE cascade constraints;
@@ -13,6 +14,13 @@ drop table EN_TRANSACTION cascade constraints;
 drop table RP_CLOSING_MONTHLY cascade constraints;
 drop table EN_SAVINGS cascade constraints;
 /***************************************CREATES*************************************/
+CREATE TABLE TY_LANGUAGE (	
+    ID NUMBER(*,0) NOT NULL, 
+	CODE VARCHAR2(20) NOT NULL , 
+	NAME VARCHAR2(50) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
 CREATE TABLE TY_CURRENCY (	
     ID NUMBER(*,0) NOT NULL, 
 	CODE VARCHAR2(20) NOT NULL , 
@@ -61,7 +69,7 @@ create table EN_USER (
 	UPDATED_DATE TIMESTAMP (6), 
 	DELETED NUMBER(1,0) DEFAULT 0 NOT NULL , 
 	FORGOT_PASSWORD NUMBER(1,0) DEFAULT 0 NOT NULL , 
-	LANGUAGE VARCHAR(10),
+	LANGUAGE_ID NUMBER (*,0),
   primary key (ID)
 );
 
@@ -83,7 +91,7 @@ create table EN_GROUP (
 	NAME VARCHAR2(50 BYTE) NOT NULL,
 	DESCRIPTION VARCHAR2(100),
 	AMOUNT_PARTICIPANT INT NOT NULL,
-	GROUP_PARENT_ID VARCHAR2(255) NOT NULL,
+	GROUP_PARENT_ID VARCHAR2(255),
 	CONTROL_ID VARCHAR2(255) NOT NULL,
 	OWNER_USER_ID VARCHAR2(255) NOT NULL,
 	DELETED NUMBER(1,0) DEFAULT 0 NOT NULL,
@@ -127,7 +135,7 @@ create table EN_CONTROL_MONTHLY (
 	CLOSED NUMBER(1,0) DEFAULT 0 NOT NULL,
 	CLOSED_DATE TIMESTAMP (6),
 	UPDATED_DATE TIMESTAMP (6), 
-	UPDATED_USER_ID VARCHAR2(255),
+	CURRENT_MONTHLY NUMBER(1,0) NOT NULL,
   primary key (ID)
 );
 
@@ -204,6 +212,11 @@ references TY_PRIVILEGE;
 -------------------------------------------USER
 alter table EN_USER add constraint uk_email unique(EMAIL);
 
+ALTER TABLE EN_USER 
+ADD CONSTRAINT FK_EN_USER_LANG_TY_LANG 
+FOREIGN KEY(LANGUAGE_ID) 
+REFERENCES TY_LANGUAGE(ID);
+
 -------------------------------------------PARTICIPANT
 alter table EN_PARTICIPANT 
 add constraint FK_EN_PART_EN_USER 
@@ -271,6 +284,7 @@ alter table EN_CONTROL
 add constraint FK_EN_CONTROL_EN_USER_UPDATED
 foreign key (UPDATED_USER_ID) 
 references EN_USER;
+
 -------------------------------------------CONTROL MONTHLY
 alter table EN_CONTROL_MONTHLY 
 add constraint FK_EN_MONTHLY_EN_GROUP 
@@ -282,10 +296,6 @@ add constraint FK_EN_MONTHLY_EN_CONTROL
 foreign key (CONTROL_ID) 
 references EN_CONTROL;
 
-alter table EN_CONTROL_MONTHLY 
-add constraint FK_EN_MONTHLY_EN_USER_UPDATED
-foreign key (UPDATED_USER_ID) 
-references EN_USER;
 -------------------------------------------TRANSACTION
 alter table EN_TRANSACTION 
 add constraint FK_EN_TRANS_EN_TRANS_BASED
